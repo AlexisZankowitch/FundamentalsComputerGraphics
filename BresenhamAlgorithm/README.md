@@ -1,4 +1,5 @@
 # Bresenham Algorithm: Straight line 
+
 ```shell
-   java out/artifacts
+   java -jar artifacts/BresenhamAlgorithm.jar
 ```
