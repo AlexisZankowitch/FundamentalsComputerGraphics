@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class BresenhamAlgorithm extends JDialog {
@@ -11,6 +12,8 @@ public class BresenhamAlgorithm extends JDialog {
     private JSpinner y1;
     private JSpinner x2;
     private JSpinner y2;
+    private JButton clearButton;
+    private JCheckBox drawLineAutomaticalyCheckBox;
 
     private BresenhamAlgorithm() {
 
@@ -38,6 +41,13 @@ public class BresenhamAlgorithm extends JDialog {
             }
         });
 
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onClear();
+            }
+        });
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -52,6 +62,10 @@ public class BresenhamAlgorithm extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+    private void onClear() {
+        this.jPanel1.repaint();
     }
 
     private void onOK() {
@@ -88,15 +102,18 @@ public class BresenhamAlgorithm extends JDialog {
         private Boolean sw = true;
         @Override
         public void mouseClicked(MouseEvent e) {
-
             if(this.sw){
                 x1.setValue(e.getX());
                 y1.setValue(e.getY());
                 this.sw = !this.sw;
+                jPanel1.getGraphics().drawRect(e.getX(),e.getY(),1,1);
             }else{
                 x2.setValue(e.getX());
                 y2.setValue(e.getY());
                 this.sw = !this.sw;
+                jPanel1.getGraphics().drawRect(e.getX(),e.getY(),1,1);
+                if(drawLineAutomaticalyCheckBox.isSelected())
+                    onOK();
             }
         }
 
