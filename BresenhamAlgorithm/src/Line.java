@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.HashMap;
 
 
@@ -7,15 +6,15 @@ class Line {
     private Point ending;
     private HashMap<String,Integer> deltas;
     private HashMap<String,Integer> variation;
-    private BresenhamAlgorithm bresenhamAlgorithm;
+    private JFrame JFrame;
     private Boolean invert = false;
 
 
-    Line(Point starting, Point ending, BresenhamAlgorithm bresenhamAlgorithm) {
+    Line(Point starting, Point ending, JFrame JFrame) {
         this.starting = starting;
         this.ending = ending;
 
-        this.bresenhamAlgorithm = bresenhamAlgorithm;
+        this.JFrame = JFrame;
 
         this.deltas = new HashMap<>();
         this.variation = new HashMap<>();
@@ -25,12 +24,12 @@ class Line {
         this.setDeltas();
         this.setVariation();
         if(this.deltas.get("x")>=this.deltas.get("y")){
-            this.draw();
+            this.bresenhamAlgorithm();
         }else {
             this.invertLine();
             this.setDeltas();
             this.setVariation();
-            this.draw();
+            this.bresenhamAlgorithm();
         }
     }
 
@@ -50,15 +49,15 @@ class Line {
         this.ending.revertPoint();
     }
 
-    private void draw(){
-        this.bresenhamAlgorithm.getTextArea1().setText(" ");
+    private void bresenhamAlgorithm(){
+        this.JFrame.getTextArea1().setText(" ");
         int xn = this.starting.getX();
         int yn = this.starting.getY();
         int pn = 2*this.deltas.get("y")-this.deltas.get("x");
         int n = 0;
         while(xn != this.ending.getX())
         {
-            this.bresenhamAlgorithm.getTextArea1().append("\n it°"+ n + " ; x"+n+"= " + ((invert)?yn:xn) + " ; y"+n+"= "  + ((invert)?xn:yn) + " ; p"+n+ "= " + pn);
+            this.JFrame.getTextArea1().append("\n it°"+ n + " ; x"+n+"= " + ((invert)?yn:xn) + " ; y"+n+"= "  + ((invert)?xn:yn) + " ; p"+n+ "= " + pn);
             if(pn > 0)
             {
                 xn = xn + this.variation.get("x");
@@ -71,9 +70,9 @@ class Line {
                 pn = pn + 2*this.deltas.get("y");
             }
             if(invert)
-                bresenhamAlgorithm.getjPanel1().getGraphics().drawLine(yn, xn, yn, xn);
+                JFrame.getjPanel1().getGraphics().drawLine(yn, xn, yn, xn);
             else
-                bresenhamAlgorithm.getjPanel1().getGraphics().drawLine(xn, yn, xn, yn);
+                JFrame.getjPanel1().getGraphics().drawLine(xn, yn, xn, yn);
 
             n++;
         }

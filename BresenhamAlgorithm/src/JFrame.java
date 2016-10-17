@@ -1,8 +1,7 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
-public class BresenhamAlgorithm extends JDialog {
+public class JFrame extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -15,7 +14,7 @@ public class BresenhamAlgorithm extends JDialog {
     private JButton clearButton;
     private JCheckBox drawLineAutomaticalyCheckBox;
 
-    private BresenhamAlgorithm() {
+    private JFrame() {
 
         setContentPane(contentPane);
         setModal(true);
@@ -82,7 +81,7 @@ public class BresenhamAlgorithm extends JDialog {
     }
 
     public static void main(String[] args) {
-        BresenhamAlgorithm dialog = new BresenhamAlgorithm();
+        JFrame dialog = new JFrame();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
