@@ -1,13 +1,13 @@
 package task1;
 
+import utilities.GraphicalObject;
 import utilities.Point;
 import utilities.JFrame;
 
-import java.awt.*;
 import java.util.HashMap;
 
 
-public class Line {
+public class Line implements GraphicalObject{
     private Point starting;
     private Point ending;
     private HashMap<String,Integer> deltas;
@@ -26,13 +26,13 @@ public class Line {
         this.variation = new HashMap<>();
     }
 
-    public void drawLine(){
+    public void draw(){
         this.setDeltas();
         this.setVariation();
         if(this.deltas.get("x")>=this.deltas.get("y")){
             this.bresenhamAlgorithm();
         }else {
-            this.invertLine();
+            this.invertPoint();
             this.setDeltas();
             this.setVariation();
             this.bresenhamAlgorithm();
@@ -49,7 +49,7 @@ public class Line {
         this.variation.put("y",(this.ending.getY() > this.starting.getY())?1:(this.ending.getY() == this.starting.getY())?0:-1);
     }
 
-    private void invertLine(){
+    private void invertPoint(){
         this.invert = true;
         this.starting.revertPoint();
         this.ending.revertPoint();

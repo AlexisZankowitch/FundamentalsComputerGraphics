@@ -1,6 +1,7 @@
 package utilities;
 
 import task1.Line;
+import task2.Circle;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -17,8 +18,9 @@ public class JFrame extends JDialog {
     private JSpinner y2;
     private JButton clearButton;
     private JCheckBox jCheckBox;
+    private JComboBox comboBox1;
 
-    private JFrame() {
+    public JFrame() {
 
         setContentPane(contentPane);
         setModal(true);
@@ -72,23 +74,31 @@ public class JFrame extends JDialog {
     }
 
     private void onOK() {
-        Line line = new Line(
-                new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
-                new Point((Integer) x2.getValue(), (Integer) y2.getValue()),
-                this
-        );
-        line.drawLine();
+        GraphicalObject gO =null;
+        switch (this.comboBox1.getSelectedItem().toString()){
+            case "line":
+                gO = new Line(
+                        new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
+                        new Point((Integer) x2.getValue(), (Integer) y2.getValue()),
+                        this
+                );
+                break;
+            case "circle":
+                gO = new Circle(
+                        new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
+                        new Point((Integer) x2.getValue(), (Integer) y2.getValue()),
+                        this
+                );
+                break;
+        }
+
+        if (gO != null) {
+            gO.draw();
+        }
     }
 
     private void onCancel() {
         dispose();
-    }
-
-    public static void main(String[] args) {
-        JFrame dialog = new JFrame();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
 
