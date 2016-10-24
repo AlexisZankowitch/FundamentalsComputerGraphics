@@ -1,3 +1,7 @@
+package utilities;
+
+import task1.Line;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -12,7 +16,7 @@ public class JFrame extends JDialog {
     private JSpinner x2;
     private JSpinner y2;
     private JButton clearButton;
-    private JCheckBox drawLineAutomaticalyCheckBox;
+    private JCheckBox jCheckBox;
 
     private JFrame() {
 
@@ -88,11 +92,11 @@ public class JFrame extends JDialog {
     }
 
 
-    JPanel getjPanel1() {
+    public JPanel getjPanel1() {
         return jPanel1;
     }
 
-    JTextArea getTextArea1() {
+    public JTextArea getTextArea1() {
         return textArea1;
     }
 
@@ -111,7 +115,7 @@ public class JFrame extends JDialog {
                 y2.setValue(e.getY());
                 this.sw = !this.sw;
                 jPanel1.getGraphics().drawRect(e.getX(),e.getY(),1,1);
-                if(drawLineAutomaticalyCheckBox.isSelected())
+                if(jCheckBox.isSelected())
                     onOK();
             }
         }

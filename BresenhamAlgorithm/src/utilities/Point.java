@@ -1,3 +1,5 @@
+package utilities;
+
 /**
  * Created by zank on 10/10/16.
  */
@@ -34,7 +36,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point{" +
+        return "utilities.Point{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';

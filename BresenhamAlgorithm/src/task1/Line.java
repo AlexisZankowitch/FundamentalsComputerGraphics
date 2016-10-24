@@ -1,7 +1,13 @@
+package task1;
+
+import utilities.Point;
+import utilities.JFrame;
+
+import java.awt.*;
 import java.util.HashMap;
 
 
-class Line {
+public class Line {
     private Point starting;
     private Point ending;
     private HashMap<String,Integer> deltas;
@@ -10,7 +16,7 @@ class Line {
     private Boolean invert = false;
 
 
-    Line(Point starting, Point ending, JFrame JFrame) {
+    public Line(Point starting, Point ending, JFrame JFrame) {
         this.starting = starting;
         this.ending = ending;
 
@@ -20,7 +26,7 @@ class Line {
         this.variation = new HashMap<>();
     }
 
-    void drawLine(){
+    public void drawLine(){
         this.setDeltas();
         this.setVariation();
         if(this.deltas.get("x")>=this.deltas.get("y")){
