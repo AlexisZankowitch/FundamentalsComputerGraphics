@@ -76,9 +76,9 @@ public class Line implements GraphicalObject{
                 pn = pn + 2*this.deltas.get("y");
             }
             if(invert)
-                JFrame.getjPanel1().getGraphics().drawLine(yn, xn, yn, xn);
+                JFrame.getPanel1().getGraphics().drawLine(yn, xn, yn, xn);
             else
-                JFrame.getjPanel1().getGraphics().drawLine(xn, yn, xn, yn);
+                JFrame.getPanel1().getGraphics().drawLine(xn, yn, xn, yn);
 
             n++;
         }

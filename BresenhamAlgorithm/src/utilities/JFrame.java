@@ -31,7 +31,6 @@ public class JFrame extends JDialog {
         y2.setValue(15);
 
         MouseCustomListener mouseCustomListener = new MouseCustomListener();
-        jPanel1.addMouseMotionListener(mouseCustomListener);
         jPanel1.addMouseListener(mouseCustomListener);
 
         buttonOK.addActionListener(new ActionListener() {
@@ -53,6 +52,13 @@ public class JFrame extends JDialog {
             }
         });
 
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onCombo();
+            }
+        });
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -67,6 +73,23 @@ public class JFrame extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+    private void onCombo() {
+        switch (this.comboBox1.getSelectedIndex()){
+            case 1:
+                x1.setValue(this.getPanel1().getWidth()/2);
+                y1.setValue(this.getPanel1().getHeight()/2);
+                x2.setValue(100);
+                y2.setValue(100);
+                break;
+            default:
+                x1.setValue(0);
+                y1.setValue(0);
+                x2.setValue(100);
+                y2.setValue(100);
+                break;
+        }
     }
 
     private void onClear() {
@@ -101,8 +124,7 @@ public class JFrame extends JDialog {
         dispose();
     }
 
-
-    public JPanel getjPanel1() {
+    public JPanel getPanel1() {
         return jPanel1;
     }
 
@@ -110,7 +132,7 @@ public class JFrame extends JDialog {
         return textArea1;
     }
 
-    private class MouseCustomListener implements MouseMotionListener,MouseListener{
+    private class MouseCustomListener implements MouseListener{
 
         private Boolean sw = true;
         @Override
@@ -147,16 +169,6 @@ public class JFrame extends JDialog {
 
         @Override
         public void mouseExited(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
 
         }
     }
