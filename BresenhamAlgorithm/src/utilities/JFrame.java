@@ -4,9 +4,12 @@ import task1.Line;
 import task2.Circle;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.*;
 
 public class JFrame extends JDialog {
+    private final MouseCustomListener mouseCustomListener;
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -19,6 +22,8 @@ public class JFrame extends JDialog {
     private JButton clearButton;
     private JCheckBox jCheckBox;
     private JComboBox comboBox1;
+    private JPanel radiusPanel;
+    private JSpinner spinnerRadius;
 
     public JFrame() {
 
@@ -30,7 +35,7 @@ public class JFrame extends JDialog {
         x2.setValue(19);
         y2.setValue(15);
 
-        MouseCustomListener mouseCustomListener = new MouseCustomListener();
+        this.mouseCustomListener = new MouseCustomListener();
         jPanel1.addMouseListener(mouseCustomListener);
 
         buttonOK.addActionListener(new ActionListener() {
@@ -42,6 +47,13 @@ public class JFrame extends JDialog {
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
+            }
+        });
+
+        spinnerRadius.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                spinnerChange();
             }
         });
 
@@ -75,19 +87,41 @@ public class JFrame extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    private void spinnerChange() {
+        GraphicalObject gO = new Circle(
+                new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
+                Integer.parseInt(this.spinnerRadius.getValue().toString()),
+                this
+        );
+        gO.draw();
+        this.mouseCustomListener.reset();
+    }
+
     private void onCombo() {
         switch (this.comboBox1.getSelectedIndex()){
             case 1:
+                this.radiusPanel.setVisible(true);
+                x1.setEnabled(false);
+                x2.setEnabled(false);
+                y1.setEnabled(false);
+                y2.setEnabled(false);
                 x1.setValue(this.getPanel1().getWidth()/2);
                 y1.setValue(this.getPanel1().getHeight()/2);
                 x2.setValue(300);
                 y2.setValue(300);
+                this.mouseCustomListener.reset();
                 break;
             default:
+                x1.setEnabled(true);
+                x2.setEnabled(true);
+                y1.setEnabled(true);
+                y2.setEnabled(true);
+                this.radiusPanel.setVisible(false);
                 x1.setValue(0);
                 y1.setValue(0);
                 x2.setValue(100);
                 y2.setValue(100);
+                this.mouseCustomListener.reset();
                 break;
         }
     }
@@ -132,9 +166,17 @@ public class JFrame extends JDialog {
         return textArea1;
     }
 
+    public void setRadius(int radius) {
+        this.spinnerRadius.setValue(radius);
+    }
+
     private class MouseCustomListener implements MouseListener{
 
         private Boolean sw = true;
+
+        public  void reset(){
+            sw = true;
+        }
         @Override
         public void mouseClicked(MouseEvent e) {
             if(this.sw){

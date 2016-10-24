@@ -27,7 +27,14 @@ public class Circle implements GraphicalObject{
                                 2)
                 )
         );
-        System.out.println(this.radius);
+        this.jFrame.setRadius(this.radius);
+        this.drawL();
+    }
+
+    public Circle(Point center, int value, JFrame jFrame) {
+        this.center = center;
+        this.jFrame = jFrame;
+        this.radius = value;
         this.drawL();
     }
 
@@ -51,6 +58,7 @@ public class Circle implements GraphicalObject{
         int xn = 0;
         int yn = this.radius;
         int pn = 1 - this.radius;
+
 
         while (xn <= yn){
             if (pn<0){
