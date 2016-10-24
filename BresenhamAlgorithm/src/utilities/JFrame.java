@@ -80,8 +80,8 @@ public class JFrame extends JDialog {
             case 1:
                 x1.setValue(this.getPanel1().getWidth()/2);
                 y1.setValue(this.getPanel1().getHeight()/2);
-                x2.setValue(100);
-                y2.setValue(100);
+                x2.setValue(300);
+                y2.setValue(300);
                 break;
             default:
                 x1.setValue(0);
