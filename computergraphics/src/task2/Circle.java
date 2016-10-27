@@ -58,7 +58,7 @@ public class Circle implements GraphicalObject{
         int xn = 0;
         int yn = this.radius;
         int pn = 1 - this.radius;
-
+        this.jFrame.getTextArea1().setText(" ");
 
         while (xn <= yn){
             if (pn<0){
@@ -100,6 +100,12 @@ public class Circle implements GraphicalObject{
             jFrame.getPanel1().getGraphics().drawLine(
                     -1 * xn + this.center.getX(), yn +this.center.getY(),
                     -1 * xn + this.center.getX(), yn + this.center.getY()
+            );
+            this.jFrame.getTextArea1().append(
+                    "\n it°"+ xn +
+                            " ; x"+xn+"= " + Math.addExact(xn,this.center.getX()) +
+                            " ; y"+xn+"= "  + Math.addExact(yn,this.center.getY()) +
+                            " ; p"+xn+ "= "+ pn
             );
         }
     }

@@ -12,15 +12,15 @@ public class Line implements GraphicalObject{
     private Point ending;
     private HashMap<String,Integer> deltas;
     private HashMap<String,Integer> variation;
-    private JFrame JFrame;
+    private JFrame jFrame;
     private Boolean invert = false;
 
 
-    public Line(Point starting, Point ending, JFrame JFrame) {
+    public Line(Point starting, Point ending, JFrame jFrame) {
         this.starting = starting;
         this.ending = ending;
 
-        this.JFrame = JFrame;
+        this.jFrame = jFrame;
 
         this.deltas = new HashMap<>();
         this.variation = new HashMap<>();
@@ -56,14 +56,14 @@ public class Line implements GraphicalObject{
     }
 
     private void bresenhamAlgorithm(){
-        this.JFrame.getTextArea1().setText(" ");
+        this.jFrame.getTextArea1().setText(" ");
         int xn = this.starting.getX();
         int yn = this.starting.getY();
         int pn = 2*this.deltas.get("y")-this.deltas.get("x");
         int n = 0;
         while(xn != this.ending.getX())
         {
-            this.JFrame.getTextArea1().append("\n it°"+ n + " ; x"+n+"= " + ((invert)?yn:xn) + " ; y"+n+"= "  + ((invert)?xn:yn) + " ; p"+n+ "= " + pn);
+            this.jFrame.getTextArea1().append("\n it°"+ n + " ; x"+n+"= " + ((invert)?yn:xn) + " ; y"+n+"= "  + ((invert)?xn:yn) + " ; p"+n+ "= " + pn);
             if(pn > 0)
             {
                 xn = xn + this.variation.get("x");
@@ -76,9 +76,9 @@ public class Line implements GraphicalObject{
                 pn = pn + 2*this.deltas.get("y");
             }
             if(invert)
-                JFrame.getPanel1().getGraphics().drawLine(yn, xn, yn, xn);
+                jFrame.getPanel1().getGraphics().drawLine(yn, xn, yn, xn);
             else
-                JFrame.getPanel1().getGraphics().drawLine(xn, yn, xn, yn);
+                jFrame.getPanel1().getGraphics().drawLine(xn, yn, xn, yn);
 
             n++;
         }
