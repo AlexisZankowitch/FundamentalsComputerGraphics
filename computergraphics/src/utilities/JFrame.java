@@ -80,10 +80,13 @@ public class JFrame extends JDialog {
             case 2:
                 resetFrame(true);
                 this.radiusY.setVisible(true);
+                this.radiusX.setValue(100);
+                this.radiusY.setValue(50);
                 break;
             case 1:
                 resetFrame(false);
                 this.radiusY.setVisible(false);
+                this.radiusX.setValue(100);
                 break;
             case 0:
                 x1.setEnabled(true);
@@ -91,6 +94,7 @@ public class JFrame extends JDialog {
                 y1.setEnabled(true);
                 y2.setEnabled(true);
                 this.radiusPanel.setVisible(false);
+                this.withRadius.setSelected(false);
                 this.mouseCustomListener.reset();
                 break;
         }
@@ -100,10 +104,15 @@ public class JFrame extends JDialog {
         GraphicalObject gO =null;
         switch (this.comboBox1.getSelectedIndex()){
             case 2:
-                gO = new Line(
-                        new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
-                        new Point((Integer) x2.getValue(), (Integer) y2.getValue())
-                );
+                if(this.withRadius.isSelected())
+                    gO = new Ellipse(
+                            new Point((Integer) x1.getValue(), (Integer) y1.getValue())
+                    );
+                else
+                    gO = new Ellipse(
+                            new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
+                            new Point((Integer) x2.getValue(), (Integer) y2.getValue())
+                    );
                 break;
             case 1:
                 if(this.withRadius.isSelected())
@@ -118,13 +127,15 @@ public class JFrame extends JDialog {
                     );
                 break;
             case 0:
-                gO = new Ellipse(
-                        new Point((int) x1.getValue(),(int) y1.getValue())
+                gO = new Line(
+                        new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
+                        new Point((Integer) x2.getValue(), (Integer) y2.getValue())
                 );
                 break;
         }
         assert gO != null;
         gO.draw();
+        this.mouseCustomListener.reset();
     }
 
     private void onClear() {
@@ -144,6 +155,7 @@ public class JFrame extends JDialog {
         x2.setValue(300);
         y2.setValue(300);
         this.drawAuto.setSelected(false);
+        this.withRadius.setSelected(true);
         this.mouseCustomListener.reset();
     }
 
@@ -176,12 +188,12 @@ public class JFrame extends JDialog {
         }
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(this.sw || withRadius.isSelected()){
+            if(this.sw){
                 x1.setValue(e.getX());
                 y1.setValue(e.getY());
                 this.sw = !this.sw;
                 jPanel1.getGraphics().drawRect(e.getX(),e.getY(),1,1);
-            }else {
+            }else if (!withRadius.isSelected()){
                 x2.setValue(e.getX());
                 y2.setValue(e.getY());
                 this.sw = !this.sw;

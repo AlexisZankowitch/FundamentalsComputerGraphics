@@ -17,17 +17,7 @@ public class Circle extends GraphicalObject{
     public Circle(Point center, Point tangent) {
         super();
         this.center = center;
-        this.radius = (int) Math.round(
-                Math.sqrt(
-                        Math.pow(
-                                tangent.getX()-this.center.getX(),
-                                2)
-                        +
-                        Math.pow(
-                                tangent.getY()-this.center.getY(),
-                                2)
-                )
-        );
+        this.radius = euclideanDistance(this.center,tangent);
         this.jFrame.setRadius(this.radius);
     }
 

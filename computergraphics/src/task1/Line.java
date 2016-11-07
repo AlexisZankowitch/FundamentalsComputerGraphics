@@ -3,6 +3,7 @@ package task1;
 import utilities.GraphicalObject;
 import utilities.Point;
 
+import java.awt.*;
 import java.util.HashMap;
 
 
@@ -82,5 +83,13 @@ public class Line extends GraphicalObject{
 
             n++;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "starting=" + starting +
+                ", ending=" + ending +
+                '}'+ '\n';
     }
 }

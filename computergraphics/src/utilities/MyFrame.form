@@ -146,7 +146,7 @@
                     </constraints>
                     <properties>
                       <enabled value="true"/>
-                      <selected value="true"/>
+                      <selected value="false"/>
                       <text value="Radius"/>
                     </properties>
                   </component>

@@ -1,9 +1,11 @@
 package utilities;
 
+import java.awt.*;
+
 /**
  * Created by zank on 10/10/16.
  */
-public class Point {
+public class Point extends GraphicalObject{
     private int x;
     private int y;
 
@@ -36,9 +38,15 @@ public class Point {
 
     @Override
     public String toString() {
-        return "utilities.Point{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "(" +
+                "x = " + x +
+                "; y = " + y +
+                ')';
+    }
+
+    @Override
+    public void draw(){
+        g.setColor(Color.GRAY);
+        g.drawLine(x,y,x,y);
     }
 }
