@@ -8,14 +8,13 @@ import utilities.Point;
  * Created by zankowitch on 24/10/16.
  *
  */
-public class Circle implements GraphicalObject{
+public class Circle extends GraphicalObject{
     private Point center;
     private int radius;
-    private JFrame jFrame;
 
-    public Circle(Point center, Point tangent, JFrame jFrame) {
+    public Circle(Point center, Point tangent) {
+        super();
         this.center = center;
-        this.jFrame = jFrame;
         this.radius = (int) Math.round(
                 Math.sqrt(
                         Math.pow(
@@ -31,9 +30,9 @@ public class Circle implements GraphicalObject{
         this.drawL();
     }
 
-    public Circle(Point center, int value, JFrame jFrame) {
+    public Circle(Point center, int value) {
+        super();
         this.center = center;
-        this.jFrame = jFrame;
         this.radius = value;
         this.drawL();
     }

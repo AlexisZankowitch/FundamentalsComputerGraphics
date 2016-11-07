@@ -2,26 +2,22 @@ package task1;
 
 import utilities.GraphicalObject;
 import utilities.Point;
-import utilities.JFrame;
 
 import java.util.HashMap;
 
 
-public class Line implements GraphicalObject{
+public class Line extends GraphicalObject{
     private Point starting;
     private Point ending;
     private HashMap<String,Integer> deltas;
     private HashMap<String,Integer> variation;
-    private JFrame jFrame;
     private Boolean invert = false;
 
 
-    public Line(Point starting, Point ending, JFrame jFrame) {
+    public Line(Point starting, Point ending) {
+        super();
         this.starting = starting;
         this.ending = ending;
-
-        this.jFrame = jFrame;
-
         this.deltas = new HashMap<>();
         this.variation = new HashMap<>();
     }
@@ -63,7 +59,11 @@ public class Line implements GraphicalObject{
         int n = 0;
         while(xn != this.ending.getX())
         {
-            this.jFrame.getTextArea1().append("\n it°"+ n + " ; x"+n+"= " + ((invert)?yn:xn) + " ; y"+n+"= "  + ((invert)?xn:yn) + " ; p"+n+ "= " + pn);
+            this.jFrame.getTextArea1().append(
+                    "\n it°"+ n + " ; x"+n+"= " +
+                    ((invert)?yn:xn) + " ; y"+n+"= "  +
+                    ((invert)?xn:yn) + " ; p"+n+ "= " +
+                    pn);
             if(pn > 0)
             {
                 xn = xn + this.variation.get("x");

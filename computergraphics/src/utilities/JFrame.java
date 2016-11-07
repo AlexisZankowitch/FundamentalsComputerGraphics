@@ -23,9 +23,19 @@ public class JFrame extends JDialog {
     private JCheckBox jCheckBox;
     private JComboBox comboBox1;
     private JPanel radiusPanel;
+    private JPanel radiusYPanel;
     private JSpinner spinnerRadius;
+    private JSpinner radiusY;
 
-    public JFrame() {
+    private static JFrame instance;
+
+    public static JFrame getInstance(){
+        if (instance == null)
+            instance = new JFrame();
+        return instance;
+    }
+
+    private JFrame() {
 
         setContentPane(contentPane);
         setModal(true);
@@ -90,8 +100,7 @@ public class JFrame extends JDialog {
     private void spinnerChange() {
         GraphicalObject gO = new Circle(
                 new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
-                Integer.parseInt(this.spinnerRadius.getValue().toString()),
-                this
+                Integer.parseInt(this.spinnerRadius.getValue().toString())
         );
         gO.draw();
         this.mouseCustomListener.reset();
@@ -99,17 +108,11 @@ public class JFrame extends JDialog {
 
     private void onCombo() {
         switch (this.comboBox1.getSelectedIndex()){
+            case 2:
+                resetFrame(true);
+                break;
             case 1:
-                this.radiusPanel.setVisible(true);
-                x1.setEnabled(false);
-                x2.setEnabled(false);
-                y1.setEnabled(false);
-                y2.setEnabled(false);
-                x1.setValue(this.getPanel1().getWidth()/2);
-                y1.setValue(this.getPanel1().getHeight()/2);
-                x2.setValue(300);
-                y2.setValue(300);
-                this.mouseCustomListener.reset();
+                resetFrame(false);
                 break;
             default:
                 x1.setEnabled(true);
@@ -117,6 +120,7 @@ public class JFrame extends JDialog {
                 y1.setEnabled(true);
                 y2.setEnabled(true);
                 this.radiusPanel.setVisible(false);
+                this.radiusYPanel.setVisible(false);
                 x1.setValue(0);
                 y1.setValue(0);
                 x2.setValue(100);
@@ -130,21 +134,33 @@ public class JFrame extends JDialog {
         this.jPanel1.repaint();
     }
 
+    private void resetFrame(boolean b){
+        this.radiusPanel.setVisible(true);
+        this.radiusYPanel.setVisible(b);
+        x1.setEnabled(false);
+        x2.setEnabled(false);
+        y1.setEnabled(false);
+        y2.setEnabled(false);
+        x1.setValue(this.getPanel1().getWidth()/2);
+        y1.setValue(this.getPanel1().getHeight()/2);
+        x2.setValue(300);
+        y2.setValue(300);
+        this.mouseCustomListener.reset();
+    }
+
     private void onOK() {
         GraphicalObject gO =null;
         switch (this.comboBox1.getSelectedItem().toString()){
             case "line":
                 gO = new Line(
                         new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
-                        new Point((Integer) x2.getValue(), (Integer) y2.getValue()),
-                        this
+                        new Point((Integer) x2.getValue(), (Integer) y2.getValue())
                 );
                 break;
             case "circle":
                 gO = new Circle(
                         new Point((Integer) x1.getValue(), (Integer) y1.getValue()),
-                        new Point((Integer) x2.getValue(), (Integer) y2.getValue()),
-                        this
+                        new Point((Integer) x2.getValue(), (Integer) y2.getValue())
                 );
                 break;
         }
@@ -169,6 +185,16 @@ public class JFrame extends JDialog {
     public void setRadius(int radius) {
         this.spinnerRadius.setValue(radius);
     }
+
+    public JSpinner getSpinnerRadius() {
+        return spinnerRadius;
+    }
+
+    public JSpinner getRadiusY() {
+        return radiusY;
+    }
+
+
 
     private class MouseCustomListener implements MouseListener{
 
@@ -215,3 +241,5 @@ public class JFrame extends JDialog {
         }
     }
 }
+
+////TODO make JFRAME singleton parce que c'est plus opti

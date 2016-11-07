@@ -1,8 +1,12 @@
 package utilities;
 
-/**
- * Created by zankowitch on 24/10/16.
- */
-public interface GraphicalObject {
-    public void draw();
+public abstract class GraphicalObject {
+
+    protected int xn,yn,pn;
+    protected JFrame jFrame;
+
+    public GraphicalObject(){
+        this.jFrame = JFrame.getInstance();
+    }
+    public abstract void draw();
 }
