@@ -3,6 +3,8 @@ package task2;
 import utilities.*;
 import utilities.Point;
 
+import java.awt.*;
+
 /**
  *
  * Created by zankowitch on 24/10/16.
@@ -27,36 +29,37 @@ public class Circle extends GraphicalObject{
                 )
         );
         this.jFrame.setRadius(this.radius);
-        this.drawL();
     }
 
     public Circle(Point center, int value) {
         super();
         this.center = center;
         this.radius = value;
-        this.drawL();
     }
 
     private void drawL(){
-        jFrame.getPanel1().getGraphics().drawLine(
+        g.setColor(Color.red);
+        g.drawLine(
                 this.center.getX()-this.radius,
                 this.center.getY(),
                 this.center.getX()+this.radius,
                 this.center.getY()
         );
-        jFrame.getPanel1().getGraphics().drawLine(
+        g.drawLine(
                 this.center.getX(),
                 this.center.getY()-this.radius,
                 this.center.getX(),
                 this.center.getY()+this.radius
         );
+        g.setColor(Color.black);
     }
 
     @Override
     public void draw() {
-        int xn = 0;
-        int yn = this.radius;
-        int pn = 1 - this.radius;
+        this.drawL();
+        this.xn = 0;
+        this.yn = this.radius;
+        this.pn = 1 - this.radius;
         this.jFrame.getTextArea1().setText(" ");
 
         while (xn <= yn){
@@ -68,35 +71,35 @@ public class Circle extends GraphicalObject{
                 yn--;
                 pn = pn +2*xn - 2*yn;
             }
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     xn + this.center.getX(), yn +this.center.getY(),
                     xn + this.center.getX(), yn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     yn +this.center.getX(), xn + this.center.getY(),
                     yn + this.center.getX(), xn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     yn +this.center.getX(), -1 * xn + this.center.getY(),
                     yn + this.center.getX(), -1 * xn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     xn + this.center.getX(), -1 * yn +this.center.getY(),
                     xn + this.center.getX(), -1 * yn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     -1 * xn + this.center.getX(), -1 * yn +this.center.getY(),
                     -1 * xn + this.center.getX(), -1 * yn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     -1 * yn +this.center.getX(), -1 * xn + this.center.getY(),
                     -1 * yn + this.center.getX(), -1 * xn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     -1 * yn +this.center.getX(), xn + this.center.getY(),
                     -1 * yn + this.center.getX(), xn + this.center.getY()
             );
-            jFrame.getPanel1().getGraphics().drawLine(
+            g.drawLine(
                     -1 * xn + this.center.getX(), yn +this.center.getY(),
                     -1 * xn + this.center.getX(), yn + this.center.getY()
             );

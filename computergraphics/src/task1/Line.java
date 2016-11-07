@@ -53,9 +53,9 @@ public class Line extends GraphicalObject{
 
     private void bresenhamAlgorithm(){
         this.jFrame.getTextArea1().setText(" ");
-        int xn = this.starting.getX();
-        int yn = this.starting.getY();
-        int pn = 2*this.deltas.get("y")-this.deltas.get("x");
+        this.xn = this.starting.getX();
+        this.yn = this.starting.getY();
+        this.pn = 2*this.deltas.get("y")-this.deltas.get("x");
         int n = 0;
         while(xn != this.ending.getX())
         {
