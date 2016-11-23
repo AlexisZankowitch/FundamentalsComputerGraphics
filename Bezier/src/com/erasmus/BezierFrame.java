@@ -111,13 +111,13 @@ public class BezierFrame extends JDialog {
         DecimalFormat df = new DecimalFormat("#.#####");
         int n = this.points.size()-1;
         int r=0;
-        float t = 0.1f;
+        float t = 0.4f;
         System.out.println("t= "+t);
         ArrayList<Float> bs = new ArrayList<Float>();
         for (int i = 0; i <= n; i++) {
             float b = (float) (coefBino(n, i) * Math.pow(t, i) * Math.pow((1 - t), (n - i)));
             bs.add(b);
-            System.out.println("B(" + i + "," + n + ")= " + n + "!/" + i + "! (" + n + "-" + i + ")!" + "*" + "t^" + i + " * (1-t" + ")" + "^ (" + n + "-" + i + ") = " + b);
+            System.out.println("B(" + i + "," + n + ")= " + n + "!/" + i + "! (" + n + "-" + i + ")!" + "*" + "t^" + i + " * (1-t" + ")" + "^ (" + n + "-" + i + ") = " + df.format(b));
         }
         System.out.println('\n');
         for (int i = 0; i <= n; i++) {
