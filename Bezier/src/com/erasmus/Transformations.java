@@ -3,7 +3,6 @@ package com.erasmus;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Transformations extends JDialog {
@@ -56,7 +55,7 @@ public class Transformations extends JDialog {
         rotateButton.addActionListener(e -> onRotateButton());
         defineRotationPointButton.addActionListener(e -> onDefineRotationPoint());
         moveButton.addActionListener(e -> onMove());
-        scaleButton.addActionListener(e -> onResize());
+        scaleButton.addActionListener(e -> onScale());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -84,7 +83,7 @@ public class Transformations extends JDialog {
         this.drawablePanel.repaint();
     }
 
-    private void onResize() {
+    private void onScale() {
         try {
             int a = Integer.parseInt(this.aTextField.getText());
             int b = Integer.parseInt(this.bTextField.getText());
@@ -102,16 +101,12 @@ public class Transformations extends JDialog {
 
     private void onMove() {
         try {
-            /*int moveX = Integer.parseInt(this.xTextField.getText());
-            int moveY = Integer.parseInt(this.yTextField.getText());*/
-            int i =1;
+            int moveX = Integer.parseInt(this.xTextField.getText());
+            int moveY = Integer.parseInt(this.yTextField.getText());
             for (Point point: this.points)
             {
-                System.out.println("x``"+i+"+=x`"+i+"-130="+point.x +"-130="+Math.addExact(point.x, -130));
-                System.out.println("y``"+i+"+=y`"+i+"+250="+point.y +"+250="+Math.addExact(point.y, 250));
-                /*point.x += moveX;
-                point.y += moveY;*/
-                i++;
+                point.x += moveX;
+                point.y += moveY;
             }
             this.pointsUpdated = true;
         }catch (Exception e)
@@ -135,17 +130,12 @@ public class Transformations extends JDialog {
                 }
 
                 int bufferX, bufferY;
-                DecimalFormat df = new DecimalFormat("#.####");
-                double a = Math.toRadians(55);
+                double a = Math.toRadians(this.rotateSlider.getValue());
                 tempPoints.clear();
-                int i = 1;
                 for (Point point : this.points) {
                     bufferX = (int) Math.round((point.x - xCenter) * Math.cos(a) - (point.y - yCenter) * Math.sin(a) + xCenter);
                     bufferY = (int) Math.round((point.x - xCenter) * Math.sin(a) + (point.y - yCenter) * Math.cos(a) + yCenter);
-                    System.out.println("x`"+i+"+=x"+i+"·cos(55)-y"+i+"·sin(55)="+ point.x +"·"+df.format(Math.cos(a)) +"+" +point.y+"·"+df.format(Math.sin(a))+"= "+bufferX);
-                    System.out.println("y`"+i+"+=y"+i+"·sin(55)+y"+i+"·cos(55)="+ point.x +"·"+df.format(Math.sin(a)) +"+" +point.y+"·"+df.format(Math.cos(a))+"= "+bufferY);
                     tempPoints.add(new Point(bufferX, bufferY));
-                    i++;
                 }
                 drawThosePoints(tempPoints);
             } catch (Exception e) {
@@ -184,22 +174,6 @@ public class Transformations extends JDialog {
 
     private void onCancel() {
         this.draw = false;
-        this.points.add(new Point(7,8));
-        this.points.add(new Point(7,-12));
-        this.points.add(new Point(-13,-14));
-        this.points.add(new Point(-10,15));
-        System.out.println("Quad coordinates: ");
-        System.out.print("{");
-        for (int i=0; i<points.size(); i++)
-        {
-            System.out.print("(x"+ i +",y"+i+")=("+points.get(i).x +","+points.get(i).y+"); ");
-        }
-        System.out.println("}");
-        System.out.println("Rotation angle: 55°: ");
-        onRotateSlider();
-        points = tempPoints;
-        System.out.println("Second transformation: Move (x=x-130, y=y+250): ");
-        onMove();
         dispose();
     }
 
