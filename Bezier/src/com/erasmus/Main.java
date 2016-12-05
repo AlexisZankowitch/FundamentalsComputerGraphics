@@ -3,7 +3,7 @@ package com.erasmus;
 public class Main {
 
     public static void main(String[] args) {
-        BezierFrame dialog = new BezierFrame();
+        Transformations dialog = new Transformations();
         dialog.pack();
         dialog.initializeGraphics();
         dialog.initDrawing();
